@@ -9,8 +9,8 @@ namespace FUNFOX.NET5.Client.Pages.Authentication
 {
     public partial class Login
     {
-        private FluentValidationValidator _fluentValidationValidator;
-        private bool Validated => _fluentValidationValidator.Validate(options => { options.IncludeAllRuleSets(); });
+      //  private FluentValidationValidator _fluentValidationValidator;
+    //    private bool Validated => _fluentValidationValidator.Validate(options => { options.IncludeAllRuleSets(); });
         private TokenRequest _tokenModel = new();
 
         protected override async Task OnInitializedAsync()
