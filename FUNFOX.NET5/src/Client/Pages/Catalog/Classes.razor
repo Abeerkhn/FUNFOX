@@ -1,0 +1,141 @@
+﻿ @page "/Classes"
+@attribute [Authorize(Policy = Permissions.Classes.View)]
+@using MudBlazor
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Classes> _localizer
+@using FUNFOX.NET5.Application.Features.Classes.Queries.GetAllPaged;
+
+<style>
+    .mud-table-container {
+        overflow: auto;
+    }
+</style>
+
+<HeroTitle Title="@_localizer["Classes"]" Description="@_localizer["Manage Classes."]" />
+@if (!_loaded)
+{
+    <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+}
+
+@if (_canEnrollInClasses){
+
+    @foreach (var classData in ClassesData)
+{
+  <div class="class-card" style="display: flex; background-color: #fff; border-radius: 10px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 30px; transition: box-shadow 0.2s ease-in-out;">
+    <div class="class-image" style="flex: 0 0 150px; margin-right: 20px;">
+      @if (!string.IsNullOrEmpty(classData.ImageUrl))
+      {
+        <img src="@classData.ImageUrl" alt="@classData.Name Class Image" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px 0 0 10px;">
+      }
+      else
+      {
+        <div class="class-image-placeholder" style="background-color: #ccc; display: flex; justify-content: center; align-items: center; border-radius: 10px 0 0 10px; width: 150px; height: 150px;">
+          <span style="font-size: 48px; color: #fff;">@classData.Name[0]</span>
+        </div>
+      }
+    </div>
+    <div class="class-details" style="flex: 1; padding: 20px; transition: background-color 0.2s ease-in-out;">
+      <MudCardContent>
+        <MudText Typo="Typo.h6" Align="Align.Left" Class="mb-2">@classData.Name</MudText>
+        <MudText Align="Align.Left" Class="mb-2">@classData.Description</MudText>
+        <div class="class-info" style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <MudText Align="Align.Left" Class="mb-0">@classData.Level</MudText>
+            <MudText Align="Align.Left" Class="mb-0">@classData.StartTime - @classData.EndTime</MudText>
+          </div>
+          <div>
+            <MudText Align="Align.Left" Class="mb-0">Max: @classData.Maxclasssize</MudText>
+            <MudText Align="Align.Left" Class="mb-0">@classData.Frequency</MudText>
+          </div>
+        </div>
+       <MudButton Variant="Variant.Filled" Color="Color.Primary" style="border-radius: 20px; width: 100%; margin-top: 10px; background-color: #2196f3; color: #fff;" @onclick="() => UserEnroll(classData.Id)">@_localizer["Enroll Now"]</MudButton>
+ </MudCardContent>
+    </div>
+  </div>
+}
+
+}
+ 
+else
+{
+    <MudTable Elevation="25" ServerData="@(new Func<TableState, Task<TableData<GetAllPagedClassesResponse>>>(ServerReload))" Hover="true" Dense="@_dense" Bordered="@_bordered" Striped="@_striped" @ref="_table">
+        <ToolBarContent>
+            <div class="justify-center mud-text-align-center">
+                @if (_canCreateClasses)
+                {
+                    <MudButton DisableElevation Variant="Variant.Filled" Color="Color.Primary" @onclick="@(() => InvokeModal(0))" StartIcon="@Icons.Material.Filled.Add" IconColor="Color.Surface">@_localizer["Create"]</MudButton>
+                    <MudButton DisableElevation Variant="Variant.Filled" OnClick="@(() => OnSearch(""))" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary">@_localizer["Reload"]</MudButton>
+                    @if (_canExportClasses)
+                    {
+                        <MudButton DisableElevation Variant="Variant.Filled" OnClick="ExportToExcel" StartIcon="@Icons.Custom.FileFormats.FileExcel" IconColor="Color.Secondary" Color="Color.Surface" Style="margin-left: 5px;">@_localizer["Export"]</MudButton>
+                    }
+                }
+                else
+                {
+                    <MudButton DisableElevation Variant="Variant.Filled" OnClick="@(() => OnSearch(""))" StartIcon="@Icons.Material.Filled.Refresh" IconColor="Color.Surface" Color="Color.Secondary">@_localizer["Reload"]</MudButton>
+                    @if (_canExportClasses)
+                    {
+                        <MudButton DisableElevation Variant="Variant.Filled" OnClick="ExportToExcel" StartIcon="@Icons.Custom.FileFormats.FileExcel" IconColor="Color.Secondary" Color="Color.Surface" Style="margin-left: 5px;">@_localizer["Export"]</MudButton>
+                    }
+                }
+            </div>
+            <MudToolBarSpacer />
+            @if (_canSearchClasses)
+            {
+                <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            }
+        </ToolBarContent>
+      <HeaderContent>
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="Id">@_localizer["Id"]</MudTableSortLabel></MudTh>
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="Name">@_localizer["Name"]</MudTableSortLabel></MudTh>
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="MaxClassSize">@_localizer["Max Class Size"]</MudTableSortLabel></MudTh>
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="Level">@_localizer["Level"]</MudTableSortLabel></MudTh>
+    
+<MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="Frequency">@_localizer["Frequency"]</MudTableSortLabel></MudTh>
+    
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="StartTime">@_localizer["Start Time"]</MudTableSortLabel></MudTh>
+    <MudTh><MudTableSortLabel T="GetAllPagedClassesResponse" SortLabel="EndTime">@_localizer["End Time"]</MudTableSortLabel></MudTh>
+    <MudTh Style="text-align:right">@_localizer["Actions"]</MudTh>
+</HeaderContent>
+        <RowTemplate>
+    <MudTd DataLabel="Id">@context.Id</MudTd>
+   <MudTd DataLabel="Name">@context.Name</MudTd>
+    
+    <MudTd DataLabel="MaxClassSize">@context.Maxclasssize</MudTd>
+          <MudTd DataLabel="Level">@context.Level</MudTd>
+         <MudTd DataLabel="Frequency">@context.Frequency</MudTd>
+    <MudTd DataLabel="StartTime">@context.StartTime</MudTd>
+    <MudTd DataLabel="EndTime">@context.EndTime</MudTd>
+            <MudTd DataLabel="Actions" Style="text-align: right">
+                @if (_canEditClasses || _canDeleteClasses)
+                {
+                    <MudMenu Label="@_localizer["Actions"]" Variant="Variant.Filled" DisableElevation="true" EndIcon="@Icons.Filled.KeyboardArrowDown" IconColor="Color.Secondary" Direction="Direction.Left" OffsetX="true">
+                        @if (_canEditClasses)
+                            {
+                            <MudMenuItem @onclick="@(() => InvokeModal(@context.Id))">@_localizer["Edit"]</MudMenuItem>
+                            }
+                        @if (_canDeleteClasses)
+                            {
+                            <MudMenuItem @onclick="@(() => Delete(@context.Id))">@_localizer["Delete"]</MudMenuItem>
+                            }
+                         @if (_canViewEnrolledUsers) 
+                            {
+                            <MudMenuItem @onclick="@(() => ViewEnrolledUsers(@context.Id))">@_localizer["View Enrolled Users"]</MudMenuItem>
+                            }
+                    </MudMenu>
+                    }
+                  
+            </MudTd>
+        </RowTemplate>
+        <FooterContent>
+            <MudSwitch @bind-Checked="@_dense" Color="Color.Secondary" Style="margin-left: 5px;">@_localizer["Dense"]</MudSwitch>
+            <MudSwitch @bind-Checked="@_striped" Color="Color.Tertiary" Style="margin-left: 5px;">@_localizer["Striped"]</MudSwitch>
+            <MudSwitch @bind-Checked="@_bordered" Color="Color.Warning" Style="margin-left: 5px;">@_localizer["Bordered"]</MudSwitch>
+        </FooterContent>
+        <PagerContent>
+            <TablePager />
+        </PagerContent>
+    </MudTable>
+} 
+
+ 
+

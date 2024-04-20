@@ -1,0 +1,17 @@
+﻿using FUNFOX.NET5.Domain.Contracts;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace FUNFOX.NET5.Application.Interfaces.Repositories
+{
+    public interface IUnitOfWork<TId> : IDisposable
+    {
+        IRepositoryAsync<T, TId> Repository<T>() where T : AuditableEntity<TId>;
+        Task<int> Commit(CancellationToken cancellationToken);
+
+        Task<int> CommitAndRemoveCache(CancellationToken cancellationToken, params string[] cacheKeys);
+
+        Task Rollback();
+    }
+}

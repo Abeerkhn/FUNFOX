@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>FUNFOX.NET5.Domain</RootNamespace>
+    <AssemblyName>FUNFOX.NET5.Domain</AssemblyName>
+  </PropertyGroup>
+
+</Project>
