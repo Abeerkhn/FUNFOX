@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FUNFOX.NET5.Infrastructure.Migrations
 {
     [DbContext(typeof(BlazorHeroContext))]
-    [Migration("20240415174403_Frequency Added to class")]
-    partial class FrequencyAddedtoclass
+    [Migration("20240420173815_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,9 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EndTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Frequency")
                         .HasColumnType("nvarchar(max)");
 
@@ -89,6 +92,9 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StartTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BlazorHeroUserId");
@@ -96,138 +102,7 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                     b.ToTable("Classes");
                 });
 
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.ExtendedAttributes.DocumentExtendedAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("Decimal")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EntityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExternalId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Group")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Json")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("Type")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntityId");
-
-                    b.ToTable("DocumentExtendedAttributes");
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.Misc.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DocumentTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("URL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentTypeId");
-
-                    b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.Misc.DocumentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DocumentTypes");
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Infrastructure.Models.Audit.Audit", b =>
+            modelBuilder.Entity("FUNFOX.NET5.Infrastructure.Models.AuditRelated.Audit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -460,7 +335,22 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                     b.Property<int>("ClassId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("UserId", "ClassId");
@@ -570,51 +460,6 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                     b.HasOne("FUNFOX.NET5.Infrastructure.Models.Identity.BlazorHeroUser", null)
                         .WithMany("EnrolledClasses")
                         .HasForeignKey("BlazorHeroUserId");
-
-                    b.OwnsOne("FUNFOX.NET5.Domain.Entities.Catalog.Timings", "Timing", b1 =>
-                        {
-                            b1.Property<int>("ClassId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<TimeSpan>("EndTime")
-                                .HasColumnType("time");
-
-                            b1.Property<TimeSpan>("StartTime")
-                                .HasColumnType("time");
-
-                            b1.HasKey("ClassId");
-
-                            b1.ToTable("Classes");
-
-                            b1.WithOwner()
-                                .HasForeignKey("ClassId");
-                        });
-
-                    b.Navigation("Timing");
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.ExtendedAttributes.DocumentExtendedAttribute", b =>
-                {
-                    b.HasOne("FUNFOX.NET5.Domain.Entities.Misc.Document", "Entity")
-                        .WithMany("ExtendedAttributes")
-                        .HasForeignKey("EntityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Entity");
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.Misc.Document", b =>
-                {
-                    b.HasOne("FUNFOX.NET5.Domain.Entities.Misc.DocumentType", "DocumentType")
-                        .WithMany()
-                        .HasForeignKey("DocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DocumentType");
                 });
 
             modelBuilder.Entity("FUNFOX.NET5.Infrastructure.Models.Identity.BlazorHeroRoleClaim", b =>
@@ -687,11 +532,6 @@ namespace FUNFOX.NET5.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FUNFOX.NET5.Domain.Entities.Misc.Document", b =>
-                {
-                    b.Navigation("ExtendedAttributes");
                 });
 
             modelBuilder.Entity("FUNFOX.NET5.Infrastructure.Models.Identity.BlazorHeroRole", b =>

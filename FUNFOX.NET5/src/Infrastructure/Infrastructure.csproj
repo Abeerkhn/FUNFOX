@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>FUNFOX.NET5.Infrastructure</RootNamespace>
     <AssemblyName>FUNFOX.NET5.Infrastructure</AssemblyName>
   </PropertyGroup>
@@ -27,7 +27,8 @@
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.2" />
     <PackageReference Include="EPPlus" Version="5.7.0" />
     <PackageReference Include="Hangfire.Core" Version="1.7.23" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />

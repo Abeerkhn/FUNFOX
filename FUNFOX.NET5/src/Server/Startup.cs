@@ -80,7 +80,7 @@ namespace FUNFOX.NET5.Server
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Files")),
                 RequestPath = new PathString("/Files")
             });
-            app.UseRequestLocalizationByCulture();
+          //  app.UseRequestLocalizationByCulture();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

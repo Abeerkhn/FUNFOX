@@ -22,7 +22,7 @@ using FUNFOX.NET5.Application.Interfaces.Services;
 using Microsoft.Extensions.Localization;
 namespace FUNFOX.NET5.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ClassesRepository : IProductRepository
     {
         private readonly IRepositoryAsync<Class, int> _repository;
         private readonly IRepositoryAsync<UserClassEnrollment,int> _UserEnrollrepository;
@@ -32,7 +32,7 @@ namespace FUNFOX.NET5.Infrastructure.Repositories
         IMapper Mapper;
     //    private readonly IStringLocalizer<ExportEnrolledUsersQueryHandler> _localizer;
 
-        public ProductRepository(IRepositoryAsync<Class, int> repository,IExcelService excelService,IMapper mapper,BlazorHeroContext blazorHeroContext,IUnitOfWork<int> unitOfWork,IRepositoryAsync<UserClassEnrollment,int> enrollRepository)
+        public ClassesRepository(IRepositoryAsync<Class, int> repository,IExcelService excelService,IMapper mapper,BlazorHeroContext blazorHeroContext,IUnitOfWork<int> unitOfWork,IRepositoryAsync<UserClassEnrollment,int> enrollRepository)
         {
             _repository = repository;
             this.excelService = excelService;

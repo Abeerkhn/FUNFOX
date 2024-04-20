@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <RootNamespace>FUNFOX.NET5.Client</RootNamespace>
     <AssemblyName>FUNFOX.NET5.Client</AssemblyName>
@@ -14,7 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Blazored.FluentValidation" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.7" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
